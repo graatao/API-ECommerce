@@ -1,12 +1,9 @@
 ﻿using API_ECommerce.Context;
 using API_ECommerce.Interfaces;
-using API_ECommerce.Models.Controllers.Repositories;
 using API_ECommerce.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace API_ECommerce.Models.Controllers
+namespace API_ECommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,7 +22,7 @@ namespace API_ECommerce.Models.Controllers
         {
             return Ok(_produtoRepository.ListarTodos());
         }
-        
+
 
 
     }
