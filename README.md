@@ -23,4 +23,4 @@
 ### ELETE /ads/:id: Remove um anúncio específico pelo ID.​
 
 ## 3. Solicitação de Compra
-###POST /purchases: Envia uma solicitação de compra informando o ID do anúncio e o conteúdo do corpo do e-mail que será enviado ao criador do anúncio.
+### POST /purchases: Envia uma solicitação de compra informando o ID do anúncio e o conteúdo do corpo do e-mail que será enviado ao criador do anúncio.
