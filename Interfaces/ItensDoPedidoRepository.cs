@@ -1,6 +1,6 @@
 ﻿using API_ECommerce.Context;
 
-namespace API_ECommerce.Controllers
+namespace API_ECommerce.Interfaces
 {
     public class ItensDoPedidoRepository
     {

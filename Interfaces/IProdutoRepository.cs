@@ -1,4 +1,5 @@
-﻿using API_ECommerce.Models;
+﻿using API_ECommerce.Controllers;
+using API_ECommerce.Models;
 
 namespace API_ECommerce.Interfaces
 {
@@ -15,6 +16,6 @@ namespace API_ECommerce.Interfaces
         //Delete (DELETAR)
         //Recebe um identificador para encontrar o Produto e o deleta
         void Deletar(int id);
-
+        
     }
 }

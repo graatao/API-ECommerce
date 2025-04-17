@@ -3,6 +3,7 @@ using API_ECommerce.Models;
 using API_ECommerce.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pagamento = API_ECommerce.Models.Pagamento;
 
 namespace API_ECommerce.Controllers
 {
@@ -10,13 +11,13 @@ namespace API_ECommerce.Controllers
     [ApiController]
     public class PagamentoController : ControllerBase
     {
-        private readonly EcommerceContext _context;
+        
         public PagamentoRepository PagamentoRepository;
 
-        public PagamentoController(EcommerceContext context)
+        public PagamentoController(PagamentoRepository pagamentoRepository )
         {
-            _context = context;
-            PagamentoRepository = new PagamentoRepository(_context);
+
+            PagamentoRepository = pagamentoRepository;
         }
 
         [HttpGet]

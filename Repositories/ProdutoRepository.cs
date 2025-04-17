@@ -16,9 +16,24 @@ namespace API_ECommerce.Repositories
 
         public void Atualizar(Produto produto)
         {
-            throw new NotImplementedException();
+            Produto produtoEncontrado = _ = _context.Produtos.Find(produto.IdProduto);
+            if (produtoEncontrado == null)
+            {
+                throw new Exception("Produto não encontrado");
+            }
+            produtoEncontrado.Nome = produto.Nome;
+            produtoEncontrado.Preco = produto.Preco;
+            produtoEncontrado.Descricao = produto.Descricao;
+            produtoEncontrado.EstoqueDisponivel = produto.EstoqueDisponivel;
+            produtoEncontrado.Categoria = produto.Categoria;
+            produtoEncontrado.Imagem = produto.Imagem;
+            _context.Produtos.Update(produtoEncontrado);
         }
+        public Produto BuscarPorId(int id)
+        {
+            return _context.Produtos.FirstOrDefault(p => p.IdProduto == id);
 
+        }
         public void Cadastrar(Produto produto)
         {
             _context.Produtos.Add(produto);
@@ -26,7 +41,13 @@ namespace API_ECommerce.Repositories
 
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            Produto produtoEncontrado = _context.Produtos.Find(id);
+            if(produtoEncontrado == null)
+            {
+                throw new Exception("Produto não encontrado");
+            }
+            _context.Produtos.Remove(produtoEncontrado);
+            _context.SaveChanges();
         }
 
         public Produto ListarPorId(int id)

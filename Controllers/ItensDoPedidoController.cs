@@ -1,4 +1,5 @@
 ﻿using API_ECommerce.Context;
+using API_ECommerce.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +9,13 @@ namespace API_ECommerce.Controllers
     [ApiController]
     public class ItensDoPedidoController : ControllerBase
     {
-        private readonly EcommerceContext _context;
+        
         public ItensDoPedidoRepository ItensDoPedidoRepository;
-        public ItensDoPedidoController(EcommerceContext context)
+        public ItensDoPedidoController(ItensDoPedidoRepository itens)
         {
-            _context = context;
-            ItensDoPedidoRepository = new ItensDoPedidoRepository(_context);
+           
+           
+            ItensDoPedidoRepository = itens;
         }
 
     }
