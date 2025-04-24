@@ -60,16 +60,14 @@ namespace API_ECommerce.Controllers
 
 
             [HttpGet("buscar/{nome}")]
-            public IActionResult BuscarClientePorNome(string nome)
+        private static IActionResult BuscarClientePorNome(ClienteController @this, string nome)
             {
-                Models.Cliente cliente = ClienteRepository.BuscarPorNome(nome);
+            Models.Cliente cliente = @this.ClienteRepository.BuscarPorNome(nome);
                 if (cliente == null)
                 {
-                    return NotFound("Cliente não encontrado");
+                return @this.NotFound("Cliente não encontrado");
                 }
-                return Ok(cliente);
-            }
-
+            return @this.Ok(cliente);
         }
     }
 }

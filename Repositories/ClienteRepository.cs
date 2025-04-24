@@ -27,7 +27,6 @@ namespace API_ECommerce.Repositories
             _context.Clientes.Update(cliente1);
             _context.SaveChanges();
 
-            
         }
         public Models.Cliente BuscarPorId(int id)
         {
@@ -80,13 +79,6 @@ namespace API_ECommerce.Repositories
         public Models.Cliente ListarPorId(int id)
         {
             
-            throw new NotImplementedException();
-        }
-        public List<Models.Cliente> ListarTodos()
-        {
-            return _context.Clientes.ToList()
-            .OrderBy(char=> char.Nome).ToList()
-            .ToList();
         }
 
         public List<Cliente> ListarPorNome(string nome)

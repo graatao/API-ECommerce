@@ -67,13 +67,6 @@ namespace API_ECommerce.Repositories
             _context.SaveChanges();
         }
 
-        public Produto ListarPorId(int id)
-        {
-            return  _context.Produtos.FirstOrDefault(p => p.IdProduto == id);
-
-
-        }
-
         public List<Produto> ListarTodos()
         {
             return _context.Produtos.ToList();
