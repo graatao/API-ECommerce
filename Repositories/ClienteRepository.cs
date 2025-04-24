@@ -23,10 +23,47 @@ namespace API_ECommerce.Repositories
             cliente1.Telefone = cliente.Telefone;
             cliente1.Endereco = cliente.Endereco;
             cliente1.DataCadastro = cliente.DataCadastro;
+            
             _context.Clientes.Update(cliente1);
             _context.SaveChanges();
 
-            throw new NotImplementedException();
+            
+        }
+        public Models.Cliente BuscarPorId(int id)
+        {
+            Models.Cliente cliente = _context.Clientes.Find(id);
+            if (cliente == null)
+            {
+                throw new Exception("Cliente não encontrado");
+            }
+            return cliente;
+        }
+        public Models.Cliente BuscarPorEmail(string email)
+        {
+            Models.Cliente cliente = _context.Clientes.FirstOrDefault(c => c.Email == email);
+            if (cliente == null)
+            {
+                throw new Exception("Cliente não encontrado");
+            }
+            return cliente;
+        }
+        public Models.Cliente BuscarPorNome(string nome)
+        {
+            Models.Cliente cliente = _context.Clientes.FirstOrDefault(c => c.Nome == nome);
+            if (cliente == null)
+            {
+                throw new Exception("Cliente não encontrado");
+            }
+            return cliente;
+        }
+        public Models.Cliente BuscarPorTelefone(string telefone)
+        {
+            Models.Cliente cliente = _context.Clientes.FirstOrDefault(c => c.Telefone == telefone);
+            if (cliente == null)
+            {
+                throw new Exception("Cliente não encontrado");
+            }
+            return cliente;
         }
 
         public void Cadastrar(Models.Cliente cliente)
@@ -47,8 +84,20 @@ namespace API_ECommerce.Repositories
         }
         public List<Models.Cliente> ListarTodos()
         {
-            return _context.Clientes.ToList();
+            return _context.Clientes.ToList()
+            .OrderBy(char=> char.Nome).ToList()
+            .ToList();
         }
 
+        public List<Cliente> ListarPorNome(string nome)
+        {
+            var listarClientes = _context.Clientes.Where(c => c.NomeCompleto ==nome).ToList();
+            if (listarClientes == null)
+            {
+                throw new Exception("Cliente não encontrado");
+            }
+            return listarClientes;
+
+        }
     }
 }

@@ -11,10 +11,10 @@ namespace API_ECommerce.Controllers
     [ApiController]
     public class PagamentoController : ControllerBase
     {
-        
+
         public PagamentoRepository PagamentoRepository;
 
-        public PagamentoController(PagamentoRepository pagamentoRepository )
+        public PagamentoController(PagamentoRepository pagamentoRepository)
         {
 
             PagamentoRepository = pagamentoRepository;
@@ -32,6 +32,30 @@ namespace API_ECommerce.Controllers
             PagamentoRepository.Cadastrar(pagamento);
             return Ok("Pagamento cadastrado com sucesso!");
         }
-    }
+    
+    [HttpGet("{id}")]
+        public IActionResult ListarPagamentoPorId(int id)
+        {
+            Pagamento pagamento = PagamentoRepository.ListarPorId(id);
+            if (pagamento == null)
+            {
+                return NotFound("Pagamento não encontrado");
+            }
+            return Ok(pagamento);
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeletarPagamento(int id)
+        {
+            try
+            {
+                PagamentoRepository.Deletar(id);
+                return Ok("Pagamento deletado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
+    }
 }

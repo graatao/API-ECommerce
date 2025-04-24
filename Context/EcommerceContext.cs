@@ -32,6 +32,9 @@ public partial class EcommerceContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+        modelBuilder.Entity<Cliente>().Ignore(c => c.Nome);
+
         modelBuilder.Entity<Cliente>(entity =>
         {
             entity.HasKey(e => e.IdCliente).HasName("PK__Cliente__D59466428B0C6DC3");

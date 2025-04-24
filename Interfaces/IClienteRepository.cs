@@ -15,7 +15,7 @@ namespace API_ECommerce.Interfaces
         //Delete (DELETAR)
         //Recebe um identificador para encontrar o Cliente e o deleta
         void Deletar(int id);
-    
+    List<Cliente> ListarPorNome(string nome);
     }
 }
 

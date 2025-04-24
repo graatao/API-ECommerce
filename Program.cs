@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 //AddTransient - cria uma nova instância a cada requisição
 //addScoped - cria uma nova instância a cada requisição dentro do mesmo escopo
 //AddSingleton
-builder.Services.AddScoped<EcommerceContext, EcommerceContext>();
+builder.Services.AddDbContext<EcommerceContext, EcommerceContext>();
 builder.Services.AddTransient<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddTransient<IClienteRepository, ClienteRepository>();
 builder.Services.AddTransient<IPagamentoRepository, PagamentoRepository>();

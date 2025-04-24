@@ -10,13 +10,13 @@ namespace API_ECommerce.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-        
+
         public ClienteRepository ClienteRepository;
 
         public ClienteController(ClienteRepository clienteRepository)
         {
-                
-           ClienteRepository = clienteRepository;
+
+            ClienteRepository = clienteRepository;
         }
 
         private IClienteRepository _clienteRepository;
@@ -28,6 +28,49 @@ namespace API_ECommerce.Controllers
         }
 
 
+    
+        [HttpPost]
+        public IActionResult CadastrarCliente(Models.Cliente cliente)
+        {
+            ClienteRepository.Cadastrar(cliente);
+            return Ok("Cliente cadastrado com sucesso!");
+        }
+        [HttpGet("{id}")]
+        public IActionResult ListarClientePorId(int id)
+        {
+            Models.Cliente cliente = ClienteRepository.ListarPorId(id);
+            if (cliente == null)
+            {
+                return NotFound("Cliente não encontrado");
+            }
+            return Ok(cliente);
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeletarCliente(int id)
+        {
+            try
+            {
+                ClienteRepository.Deletar(id);
+                return Ok("Cliente deletado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+
+            [HttpGet("buscar/{nome}")]
+            public IActionResult BuscarClientePorNome(string nome)
+            {
+                Models.Cliente cliente = ClienteRepository.BuscarPorNome(nome);
+                if (cliente == null)
+                {
+                    return NotFound("Cliente não encontrado");
+                }
+                return Ok(cliente);
+            }
+
+        }
     }
 }
 

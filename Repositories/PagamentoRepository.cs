@@ -19,16 +19,27 @@ namespace API_ECommerce.Repositories
             {
                 throw new Exception("Pagamento não encontrado");
             }
+            pagamentoEncontrado.FormaPagamento = pagamento.FormaPagamento;
+            pagamentoEncontrado.Status = pagamento.Status;
+            
+            
+            _context.SaveChanges();
 
-            throw new NotImplementedException();
+
         }
 
         public void Cadastrar(Pagamento pagamento)
         {
-            _context.Pagamentos.Add(pagamento);
+            Pagamento pagamentoCadastro = new Pagamento();
+            {
+                pagamentoCadastro.FormaPagamento = pagamento.FormaPagamento;
+                pagamentoCadastro.Status = pagamento.Status;
+            }
+            _context.Pagamentos.Add(pagamentoCadastro);
             _context.SaveChanges();
-        
-            throw new NotImplementedException();
+
+
+            
         }
 
         public void Deletar(int id)

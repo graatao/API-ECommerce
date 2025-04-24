@@ -1,4 +1,5 @@
 ﻿using API_ECommerce.Context;
+using API_ECommerce.DTO;
 using API_ECommerce.Interfaces;
 using API_ECommerce.Models;
 
@@ -39,6 +40,22 @@ namespace API_ECommerce.Repositories
             _context.Produtos.Add(produto);
         }
 
+        public void Cadastrar(CadastrarProdutoDto produto)
+        {
+            Produto produtoCadastro = new Produto();
+            {
+                produtoCadastro.Nome = produto.Nome;
+                produtoCadastro.Preco = produto.Preco;
+                produtoCadastro.Descricao = produto.Descricao;
+                produtoCadastro.EstoqueDisponivel = produto.Estoque;
+                produtoCadastro.Categoria = produto.Categoria;
+                produtoCadastro.Imagem = produto.Imagem;
+            }       
+            _context.Produtos.Add(produtoCadastro);
+            _context.SaveChanges();
+        }
+        
+
         public void Deletar(int id)
         {
             Produto produtoEncontrado = _context.Produtos.Find(id);
@@ -52,7 +69,9 @@ namespace API_ECommerce.Repositories
 
         public Produto ListarPorId(int id)
         {
-            throw new NotImplementedException();
+            return  _context.Produtos.FirstOrDefault(p => p.IdProduto == id);
+
+
         }
 
         public List<Produto> ListarTodos()

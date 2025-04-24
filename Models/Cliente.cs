@@ -5,6 +5,11 @@ namespace API_ECommerce.Models;
 
 public partial class Cliente
 {
+    public Cliente(object nome)
+    {
+        Nome = nome;
+    }
+
     public int IdCliente { get; set; }
 
     public string? NomeCompleto { get; set; }
