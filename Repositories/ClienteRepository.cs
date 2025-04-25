@@ -28,7 +28,7 @@ namespace API_ECommerce.Repositories
             _context.SaveChanges();
 
         }
-        public Models.Cliente BuscarPorId(int id)
+        public Models.Cliente ListarPorId(int id)
         {
             Models.Cliente cliente = _context.Clientes.Find(id);
             if (cliente == null)
@@ -76,9 +76,12 @@ namespace API_ECommerce.Repositories
 
             throw new NotImplementedException();
         }
-        public Models.Cliente ListarPorId(int id)
+        
+        
+        public List<Models.Cliente> ListarTodos()
         {
-            
+           return [.. _context.Clientes.OrderBy(c => c.Nome)];
+
         }
 
         public List<Cliente> ListarPorNome(string nome)
@@ -91,5 +94,6 @@ namespace API_ECommerce.Repositories
             return listarClientes;
 
         }
-    }
+
+    }  
 }

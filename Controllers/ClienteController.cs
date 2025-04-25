@@ -1,6 +1,8 @@
 ﻿using API_ECommerce.Context;
 using API_ECommerce.Interfaces;
+using API_ECommerce.Models;
 using API_ECommerce.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,15 +60,16 @@ namespace API_ECommerce.Controllers
                 return NotFound(ex.Message);
             }
 
+        }
 
-            [HttpGet("buscar/{nome}")]
+        [HttpGet("buscar/{nome}")]
         private static IActionResult BuscarClientePorNome(ClienteController @this, string nome)
-            {
+        {
             Models.Cliente cliente = @this.ClienteRepository.BuscarPorNome(nome);
-                if (cliente == null)
-                {
+            if (cliente == null)
+            {
                 return @this.NotFound("Cliente não encontrado");
-                }
+            }
             return @this.Ok(cliente);
         }
     }
@@ -74,3 +77,29 @@ namespace API_ECommerce.Controllers
 
 
 
+[Authorize]
+[Route("api/[controller]")]
+[ApiController]
+public class ClienteController : ControllerBase
+{
+    private readonly EcommerceContext _context;
+
+    public ClienteController(EcommerceContext context)
+    {
+        _context = context;
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<Cliente> ObterPorId(int id)
+    {
+        var cliente = _context.Clientes.Find(id);
+        if (cliente == null)
+        {
+            return NotFound();
+        }
+        return Ok(cliente);
+    }
+}
+
+
+  

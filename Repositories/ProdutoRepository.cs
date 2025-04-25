@@ -30,7 +30,7 @@ namespace API_ECommerce.Repositories
             produtoEncontrado.Imagem = produto.Imagem;
             _context.Produtos.Update(produtoEncontrado);
         }
-        public Produto BuscarPorId(int id)
+        public Produto ListarPorId(int id)
         {
             return _context.Produtos.FirstOrDefault(p => p.IdProduto == id);
 
@@ -73,3 +73,5 @@ namespace API_ECommerce.Repositories
         }
     }
 }
+
+
