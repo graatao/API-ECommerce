@@ -24,4 +24,5 @@ public partial class Cliente
 
     public virtual ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
     public object Nome { get; internal set; }
+    public string Senha { get; internal set; }
 }

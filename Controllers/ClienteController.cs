@@ -1,8 +1,12 @@
 ﻿using API_ECommerce.Context;
 using API_ECommerce.Interfaces;
+using API_ECommerce.Models;
 using API_ECommerce.Repositories;
+using API_ECommerce.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_ECommerce.Controllers
 {
@@ -21,20 +25,18 @@ namespace API_ECommerce.Controllers
 
         private IClienteRepository _clienteRepository;
 
+        private readonly PasswordService _passwordService = new PasswordService();
+        public ClienteController(IClienteRepository clienteRepository)
+        {
+            _clienteRepository = clienteRepository;
+        }
+
         [HttpGet]
         public IActionResult ListarClientes()
         {
             return Ok(ClienteRepository.ListarTodos());
         }
 
-
-    
-        [HttpPost]
-        public IActionResult CadastrarCliente(Models.Cliente cliente)
-        {
-            ClienteRepository.Cadastrar(cliente);
-            return Ok("Cliente cadastrado com sucesso!");
-        }
         [HttpGet("{id}")]
         public IActionResult ListarClientePorId(int id)
         {
@@ -58,19 +60,34 @@ namespace API_ECommerce.Controllers
                 return NotFound(ex.Message);
             }
 
+        }
 
-            [HttpGet("buscar/{nome}")]
+        [HttpGet("buscar/{nome}")]
         private static IActionResult BuscarClientePorNome(ClienteController @this, string nome)
-            {
+        {
             Models.Cliente cliente = @this.ClienteRepository.BuscarPorNome(nome);
-                if (cliente == null)
-                {
+            if (cliente == null)
+            {
                 return @this.NotFound("Cliente não encontrado");
-                }
+            }
             return @this.Ok(cliente);
         }
-    }
-}
+        [HttpPost]
+        public IActionResult CadastrarCliente(Cliente cliente)
+        {
+            cliente.Senha = _passwordService.HashPassword(cliente);
+            _clienteRepository.Cadastrar(cliente);
+            return CreatedAtAction(nameof(BuscarClientePorNome), new { id = cliente.IdCliente }, cliente);
 
+        }
+        
+
+
+
+    }
+        
+
+            
+}
 
 
