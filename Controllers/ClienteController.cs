@@ -2,7 +2,9 @@
 using API_ECommerce.Interfaces;
 using API_ECommerce.Models;
 using API_ECommerce.Repositories;
+
 using API_ECommerce.Services;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,13 +25,10 @@ namespace API_ECommerce.Controllers
             ClienteRepository = clienteRepository;
         }
 
-        private IClienteRepository _clienteRepository;
+        private IClienteRepository clienteRepository;
 
         private readonly PasswordService _passwordService = new PasswordService();
-        public ClienteController(IClienteRepository clienteRepository)
-        {
-            _clienteRepository = clienteRepository;
-        }
+
 
         [HttpGet]
         public IActionResult ListarClientes()
@@ -76,18 +75,11 @@ namespace API_ECommerce.Controllers
         public IActionResult CadastrarCliente(Cliente cliente)
         {
             cliente.Senha = _passwordService.HashPassword(cliente);
-            _clienteRepository.Cadastrar(cliente);
+            clienteRepository.Cadastrar(cliente);
             return CreatedAtAction(nameof(BuscarClientePorNome), new { id = cliente.IdCliente }, cliente);
 
-        }
-        
-
-
+    }
 
     }
-        
-
-            
 }
-
 
